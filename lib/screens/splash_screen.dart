@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:get/route_manager.dart';
 import 'package:tribun_app/utils/app_colors.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -39,8 +40,7 @@ with SingleTickerProviderStateMixin {
     
     // navigate to home screen after animation
     Future.delayed(Duration(seconds: 3), () {
-      // TODO : defining all routes for each screen
-      // Get.offAllNamed(RouteName.home);
+      Get.offAllNamed('');
     });
   }
 
@@ -79,8 +79,34 @@ with SingleTickerProviderStateMixin {
                           ),
                         ]
                       ),
-                      // TODO : Icon news paper please input here
-                    )
+                      child: Icon(
+                        Icons.newspaper,
+                        size: 60,
+                        color: AppColors.primary,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'News App',
+                      style: TextStyle(
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.white,
+                        letterSpacing: 1.5,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Stay updated with the latest news',
+                      style: TextStyle(
+                        fontSize: 16,
+                        color: Colors.white.withValues(alpha: 0.8),
+                      ),
+                    ),
+                    SizedBox(height: 50),
+                    CircularProgressIndicator(
+                      valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                    ),
                   ],
                 ),
               ),
