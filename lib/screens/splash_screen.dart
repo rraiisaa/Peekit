@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
 import 'package:tribun_app/utils/app_colors.dart';
 
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -10,41 +11,46 @@ class SplashScreen extends StatefulWidget {
   State<SplashScreen> createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-with SingleTickerProviderStateMixin {
-  late AnimationController _animationController;
-  late Animation<double> _fadeAnimation;
-  late Animation<double> _scaleAnimation;
+class _SplashScreenState extends State<SplashScreen> 
+  with SingleTickerProviderStateMixin{
+    late AnimationController _animationController;
+    late Animation<double> _fadeAnimation;
+    late Animation<double> _scaleAnimation;
 
-  @override
-  void initState() {
-    super.initState();
-    _animationController = AnimationController(
-      vsync: this,
-      duration: Duration(seconds: 2),
-    );
 
-    _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0)
-    .animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.easeInOut,
-    ));
+    @override
+    void initState() {
+      super.initState();
+      _animationController = AnimationController(
+        duration: Duration(seconds: 2),
+        vsync: this
+      );
 
-    _scaleAnimation = Tween<double>(begin: 0.8, end: 1.0)
-    .animate(CurvedAnimation(
-      parent: _animationController,
-      curve: Curves.elasticInOut,
-    ));
+      _fadeAnimation = Tween<double>(
+        begin: 0.0,
+        end: 1.0
+      ).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.easeInOut
+      ));
 
-    _animationController.forward();
-    
-    // navigate to home screen after animation
-    Future.delayed(Duration(seconds: 3), () {
-      Get.offAllNamed('');
-    });
-  }
+      _scaleAnimation = Tween<double>(
+        begin: 0.5,
+        end: 1.0
+      ).animate(CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.elasticInOut
+      ));
 
-  @override 
+      _animationController.forward();
+
+      // navigate to homescreen after 3 sec
+      Future.delayed(Duration(seconds: 3), () {
+        Get.offAllNamed(Routes.HOME); 
+      });
+    }
+
+   @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
@@ -66,18 +72,16 @@ with SingleTickerProviderStateMixin {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
-                      width: 120,
                       height: 120,
+                      width: 120,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(20),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26.withValues(alpha: 0.2),
-                            blurRadius: 20,
-                            offset: Offset(0, 10),
-                          ),
-                        ]
+                        boxShadow: [BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.2),
+                          blurRadius: 20,
+                          offset: Offset(0, 10)
+                        )]
                       ),
                       child: Icon(
                         Icons.newspaper,
@@ -85,33 +89,32 @@ with SingleTickerProviderStateMixin {
                         color: AppColors.primary,
                       ),
                     ),
-                    SizedBox(height: 10),
                     Text(
                       'News App',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
-                        letterSpacing: 1.5,
+                        letterSpacing: 1.5
                       ),
                     ),
                     SizedBox(height: 10),
                     Text(
-                      'Stay updated with the latest news',
+                      'Stay Updtaed with Lates News',
                       style: TextStyle(
                         fontSize: 16,
-                        color: Colors.white.withValues(alpha: 0.8),
+                        color: Colors.white.withValues(alpha: 0.8)
                       ),
                     ),
                     SizedBox(height: 50),
                     CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                    ),
+                    )
                   ],
                 ),
               ),
             );
-          }
+          },
         ),
       ),
     );
