@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
+import 'package:tribun_app/routes/app_pages.dart';
 import 'package:tribun_app/utils/app_colors.dart';
 
 
