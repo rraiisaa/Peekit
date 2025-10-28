@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
-import 'package:tribun_app/models/news_articles.dart';
-import 'package:tribun_app/services/news_services.dart';
-import 'package:tribun_app/utils/constants.dart';
+import 'package:peekit_app/models/news_articles.dart';
+import 'package:peekit_app/services/news_services.dart';
+import 'package:peekit_app/utils/constants.dart';
 
 class NewsController extends GetxController {
   // untuk memproses request yang sudah dibuat oleh NewsServices

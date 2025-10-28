@@ -2,12 +2,12 @@
 import 'package:flutter/material.dart';
 // import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
-import 'package:tribun_app/controllers/news_controller.dart';
-import 'package:tribun_app/routes/app_pages.dart';
-import 'package:tribun_app/utils/app_colors.dart';
-import 'package:tribun_app/widgets/category_chip.dart';
-import 'package:tribun_app/widgets/loading_shimmer.dart';
-import 'package:tribun_app/widgets/news_card.dart';
+import 'package:peekit_app/controllers/news_controller.dart';
+import 'package:peekit_app/routes/app_pages.dart';
+import 'package:peekit_app/utils/app_colors.dart';
+import 'package:peekit_app/widgets/category_chip.dart';
+import 'package:peekit_app/widgets/loading_shimmer.dart';
+import 'package:peekit_app/widgets/news_card.dart';
 
 class HomeScreen extends GetView<NewsController> {
 @override

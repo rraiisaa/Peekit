@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/route_manager.dart';
-import 'package:tribun_app/routes/app_pages.dart';
-import 'package:tribun_app/utils/app_colors.dart';
+import 'package:peekit_app/routes/app_pages.dart';
+import 'package:peekit_app/utils/app_colors.dart';
 
 
 class SplashScreen extends StatefulWidget {
@@ -47,7 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
 
       // navigate to homescreen after 3 sec
       Future.delayed(Duration(seconds: 3), () {
-        Get.offAllNamed(Routes.HOME); 
+        Get.offAllNamed(Routes.ONBOARDING); 
       });
     }
 
@@ -91,7 +91,7 @@ class _SplashScreenState extends State<SplashScreen>
                       ),
                     ),
                     Text(
-                      'News App',
+                      'Peekit',
                       style: TextStyle(
                         fontSize: 32,
                         fontWeight: FontWeight.bold,

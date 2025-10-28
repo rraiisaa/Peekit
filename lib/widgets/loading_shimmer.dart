@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tribun_app/utils/app_colors.dart';
+import 'package:peekit_app/utils/app_colors.dart';
 
 class LoadingShimmer extends StatefulWidget {
   const LoadingShimmer({super.key});

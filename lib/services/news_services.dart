@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:tribun_app/models/news_response.dart';
-import 'package:tribun_app/utils/constants.dart';
+import 'package:peekit_app/models/news_response.dart';
+import 'package:peekit_app/utils/constants.dart';
 // mendefinikan sebuah package/library menjadi sebuah variable secara langsung
 import 'package:http/http.dart' as http;
 

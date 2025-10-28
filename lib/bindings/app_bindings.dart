@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:tribun_app/controllers/news_controller.dart';
+import 'package:peekit_app/controllers/news_controller.dart';
 
 class AppBindings implements Bindings {
   @override

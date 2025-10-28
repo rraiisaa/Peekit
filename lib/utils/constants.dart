@@ -28,3 +28,9 @@ class Constants {
   static const String appName = 'News App';
   static const String appVersion = '1.0.0';
 }
+
+// animationDuration time definition
+const animationDuration = Duration(milliseconds: 200); //best practicenya 200-400
+
+//default constant value for padding size
+const defaultPadding = 20.0;

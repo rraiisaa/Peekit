@@ -1,4 +1,4 @@
-import 'package:tribun_app/models/news_articles.dart';
+import 'package:peekit_app/models/news_articles.dart';
 
 class NewsResponse {
   final String status;
