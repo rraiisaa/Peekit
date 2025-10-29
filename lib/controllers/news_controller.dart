@@ -4,31 +4,27 @@ import 'package:peekit_app/services/news_services.dart';
 import 'package:peekit_app/utils/constants.dart';
 
 class NewsController extends GetxController {
-  // untuk memproses request yang sudah dibuat oleh NewsServices
   final NewsServices _newsServices = NewsServices();
 
-  // Setter
-  // observable variables (variable yang bisa berubah)
-  final _isLoading = false.obs; // apakah aplikasi sedang memuat berita? (true/false)
-  final _articles = <NewsArticles>[].obs; // untuk menampilkan daftar berita yang sudah/berhasil didapat
-  final _selectedCategory = 'general'.obs; // untuk handle kategori yang sedang dipilih (yang akan muncul di home screen)
-  final _error = ''.obs; // kalau ada kesalahan, pesan error akan disimpan disini
+  // Observable variables
+  final _isLoading = false.obs;
+  final _articles = <NewsArticles>[].obs;
+  final _hotArticles = <NewsArticles>[].obs; // 🔥 untuk berita hot
+  final _selectedCategory = 'general'.obs;
+  final _error = ''.obs;
 
   // Getters
-  // getter ini, seperti jendela untuk melihat isi variable yang sudah didefinisiakan
-  // dengan ini, UI bisa dengan mudah melihat data dari controller
   bool get isLoading => _isLoading.value;
   List<NewsArticles> get articles => _articles;
+  List<NewsArticles> get hotArticles => _hotArticles;
   String get selectedCategory => _selectedCategory.value;
   String get error => _error.value;
   List<String> get categories => Constants.categories;
 
-  // begitu aplikasi dibuka, aplikasi langsung menampilkan berita utama
-  //dari endpoint top-headlines
-  // TODO: Fetching data dari endpoint top-headlines
-
+  // =============================================================
+  // 🔹 Ambil semua berita utama (top-headlines)
+  // =============================================================
   Future<void> fetchTopHeadlines({String? category}) async {
-    // blok ini akan dijalankan ketika REST API berhasil berkomunikasi dengan server
     try {
       _isLoading.value = true;
       _error.value = '';
@@ -45,23 +41,101 @@ class NewsController extends GetxController {
         'Failed to load news: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
       );
-      // finally akan tetap diexecute setelah salah satu dari blok try atau catch sudah berhasil mendapatkan hasil
     } finally {
       _isLoading.value = false;
     }
   }
 
-  Future<void> refreshNews() async {
-    await fetchTopHeadlines();
+  // =============================================================
+  // 🔹 Ambil berita "Hot News" — urut dari yang terbaru
+  // =============================================================
+  Future<void> fetchHotNews() async {
+    try {
+      _isLoading.value = true;
+      _error.value = '';
+
+      final response = await _newsServices.getTopHeadlines(category: 'general');
+
+      final sorted = response.articles
+        ..sort((a, b) {
+          final bDate = DateTime.tryParse(b.publishedAt?.toString() ?? '') ?? DateTime.now();
+          final aDate = DateTime.tryParse(a.publishedAt?.toString() ?? '') ?? DateTime.now();
+          return bDate.compareTo(aDate);
+        });
+
+      // ambil 5 berita teratas yang paling baru
+      _hotArticles.value = sorted.take(5).toList();
+    } catch (e) {
+      _error.value = e.toString();
+      Get.snackbar(
+        'Error',
+        'Failed to load hot news: ${e.toString()}',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    } finally {
+      _isLoading.value = false;
+    }
   }
 
+  // =============================================================
+  // 🔹 Filter berita berdasarkan waktu (kemarin, minggu lalu, bulan lalu)
+  // =============================================================
+  Future<void> filterByTime(String filterType) async {
+    try {
+      final now = DateTime.now();
+      late DateTime cutoffDate;
+
+      if (filterType == 'Kemarin') {
+        cutoffDate = now.subtract(const Duration(days: 1));
+      } else if (filterType == '1 Minggu Lalu') {
+        cutoffDate = now.subtract(const Duration(days: 7));
+      } else if (filterType == '1 Bulan Lalu') {
+        cutoffDate = now.subtract(const Duration(days: 30));
+      } else {
+        // kalau tidak ada filter, tampilkan semua berita
+        await fetchTopHeadlines();
+        return;
+      }
+
+      // filter berita yang tanggal publish-nya setelah batas waktu
+      final filtered = _articles.where((article) {
+        final date = DateTime.tryParse(article.publishedAt?.toString() ?? '');
+        if (date == null) return false;
+        return date.isAfter(cutoffDate);
+      }).toList();
+
+      _articles.value = filtered;
+    } catch (e) {
+      Get.snackbar(
+        'Error',
+        'Failed to filter news: ${e.toString()}',
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  // =============================================================
+  // 🔹 Refresh semua berita
+  // =============================================================
+  Future<void> refreshNews() async {
+    await fetchTopHeadlines();
+    await fetchHotNews();
+  }
+
+  // =============================================================
+  // 🔹 Pilih kategori
+  // =============================================================
   void selectCategory(String category) {
     if (_selectedCategory.value != category) {
       _selectedCategory.value = category;
       fetchTopHeadlines(category: category);
+      fetchHotNews(); // sekalian update hot news
     }
   }
 
+  // =============================================================
+  // 🔹 Fitur Search
+  // =============================================================
   Future<void> searchNews(String query) async {
     if (query.isEmpty) return;
 
@@ -76,7 +150,7 @@ class NewsController extends GetxController {
       Get.snackbar(
         'Error',
         'Failed to search news: ${e.toString()}',
-        snackPosition: SnackPosition.BOTTOM
+        snackPosition: SnackPosition.BOTTOM,
       );
     } finally {
       _isLoading.value = false;
