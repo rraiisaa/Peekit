@@ -23,9 +23,10 @@ class BottomNavBar extends StatelessWidget {
       showUnselectedLabels: false,
       items: const [
         BottomNavigationBarItem(icon: Icon(Icons.home_rounded), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.grid_view_rounded), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.article_outlined), label: ''),
-        BottomNavigationBarItem(icon: Icon(Icons.person_outline), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.newspaper), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.movie), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.notifications), label: ''),
+        BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
       ],
     );
   }

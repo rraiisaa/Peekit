@@ -3,6 +3,7 @@ import 'package:peekit_app/bindings/home_bindings.dart';
 import 'package:peekit_app/screens/home_screen.dart';
 import 'package:peekit_app/screens/news_detail_screen.dart';
 import 'package:peekit_app/screens/onboarding/onboarding_screen.dart';
+import 'package:peekit_app/screens/search_screen.dart';
 import 'package:peekit_app/screens/splash_screen.dart';
 
 part 'app_routes.dart';
@@ -26,6 +27,10 @@ class AppPages {
       name: _Paths.HOME,
       page: () => HomeScreen(),
       binding: HomeBindings(),
+    ),
+    GetPage(
+      name: _Paths.SEARCH_SCREEN,
+      page: () => SearchScreen(),
     ),
     GetPage(
       name: _Paths.NEWS_DETAIL,
