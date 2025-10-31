@@ -1,16 +1,31 @@
-# tribun_app
+# PEEKIT APP
+Aplikasi berita berbasis API. Disini kamu bisa menemukan berita yang update dan sesuai kategori yang kamu mau. Seperti teknologi, pendidikan, Politik dan lainnya! dengan tampilan yang modern, kami pastikan user tidak akan cepat bosan dalam membaca berita
 
-A new Flutter project.
+# Screens
 
-## Getting Started
+### Splash Screen
+# (3) On Boarding Screen
+### Home Screen : 
+- Pop Up Greeting
+- Filter by Time
+- Search Bar
+- Hot News
+- News List
+- Bottom Navbar
 
-This project is a starting point for a Flutter application.
+1. Pop Up Greeting :
+Ketika user baru memasuki aplikasi peek akan memberikan sambutan kepada user yang baru login. klik dimana saja untuk menghilangkannya
 
-A few resources to get you started if this is your first Flutter project:
+2. Filter by Time :
+Filter berita berdasarkan waktu yang kamu mau. dan klik "All" untuk kembali ke berita secara general
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+3. Search Bar :
+Cari topik yang kamu minati disini! Bingung mau cari apa? disini juga ada rekomendasi pencarian berdasarkan trending topik loh! jadi ga usah bingung mau cari berita apa 
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+4. Hot News :
+Baca berita yang lagi panas saat ini 🔥 dengan membaca berita kamu dapat mengetahui situasi dunia saat ini
+
+5. Bottom Navbar :
+Beralih dari 1 screen ke screen lain! kamu dapat beralih screen ke news screen, notification screen dan juga profile screen
+
+# Pop Up Greeting

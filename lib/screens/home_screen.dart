@@ -38,7 +38,25 @@ class _HomeScreenState extends State<HomeScreen> {
       children: [
         Scaffold(
           backgroundColor: const Color(0xfff9f9f9),
-          bottomNavigationBar: BottomNavBar(currentIndex: 0, onTap: (index) {}),
+          bottomNavigationBar: BottomNavBar(
+            currentIndex: 0, // 0 = Home
+            onTap: (index) {
+              switch (index) {
+                case 0:
+                  break; // udah di Home
+                case 1:
+                  Navigator.pushNamed(context, Routes.NEWS_SCREEN);
+                  break;
+                case 2:
+                  Navigator.pushNamed(context, Routes.NOTIFICATION_SCREEN);
+                  break;
+                case 3:
+                  Navigator.pushNamed(context, '/profile');
+                  break;
+              }
+            },
+          ),
+
           body: SafeArea(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -270,25 +288,22 @@ class _HomeScreenState extends State<HomeScreen> {
                     if (controller.articles.isEmpty) return _buildEmptyWidget();
 
                     return RefreshIndicator(
-                      onRefresh: controller.refreshNews,
-                      child: ListView.builder(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 8,
-                        ),
-                        itemCount: controller.articles.length,
-                        itemBuilder: (context, index) {
-                          final article = controller.articles[index];
-                          return NewsCard(
-                            article: article,
-                            onTap: () => Get.toNamed(
-                              Routes.NEWS_DETAIL,
-                              arguments: article,
-                            ),
-                          );
-                        },
+                onRefresh: controller.refreshNews,
+                child: ListView.builder(
+                  padding: EdgeInsets.all(16),
+                  itemCount: controller.articles.length,
+                  itemBuilder: (context, index) {
+                    final article = controller.articles[index];
+                    return NewsCard(
+                      article: article,
+                      onTap: () => Get.toNamed(
+                        Routes.NEWS_DETAIL,
+                        arguments: article
                       ),
                     );
+                  },
+                ),
+              );
                   }),
                 ),
               ],
@@ -407,6 +422,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       builder: (context) {
         final filters = [
+          'All',
           'Yesterday',
           '1 Week Ago',
           '1 Month Ago',
