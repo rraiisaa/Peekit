@@ -75,7 +75,7 @@ class _BodyState extends State<Body> {
                       ),
                       onPressed: () {
                         if (currentPage == onBoardingData.length - 1) {
-                          Get.offAllNamed(Routes.HOME);
+                          Get.offAllNamed(Routes.LOGIN);
                         } else {
                           _pageController.animateToPage(
                             currentPage + 1,

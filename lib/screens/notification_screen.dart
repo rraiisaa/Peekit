@@ -17,22 +17,39 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xfff9f9f9),
-      appBar: AppBar(
-        title: const Text('Notifications', style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          Obx(() {
-            if (!controller.hasSelected) return const SizedBox();
-            return IconButton(
-              icon: const Icon(Icons.delete_outline, color: Colors.red),
-              onPressed: () => _showDeleteConfirmDialog(context),
-            );
-          }),
-        ],
-      ),
+     appBar: AppBar(
+  title: Obx(() {
+    final selectedCount =
+        controller.notifications.where((n) => n.isSelected).length;
+    return Text(
+      selectedCount > 0 ? "$selectedCount selected" : "Notifications",
+      style: const TextStyle(color: Colors.black),
+    );
+  }),
+  backgroundColor: Colors.white,
+  elevation: 0,
+  leading: Obx(() {
+    final hasSelected = controller.notifications.any((n) => n.isSelected);
+    if (!hasSelected) return const SizedBox();
+    return IconButton(
+      icon: const Icon(Icons.close, color: Colors.black),
+      onPressed: () => controller.clearSelection(),
+    );
+  }),
+  actions: [
+    Obx(() {
+      final hasSelected = controller.notifications.any((n) => n.isSelected);
+      if (!hasSelected) return const SizedBox();
+      return IconButton(
+        icon: const Icon(Icons.delete_outline, color: Colors.red),
+        onPressed: () => _showDeleteConfirmDialog(context),
+      );
+    }),
+  ],
+),
+
      bottomNavigationBar: BottomNavBar(
-        currentIndex: 1, // 1 = News
+        currentIndex: 2,
         onTap: (index) {
           switch (index) {
             case 0:
@@ -40,7 +57,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               break;
             case 1:
               Navigator.pushNamed(context, Routes.NEWS_SCREEN);
-              break; // udah di News
+              break; 
             case 2:
               break;
             case 3:

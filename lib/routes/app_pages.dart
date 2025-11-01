@@ -1,4 +1,6 @@
 import 'package:get/get_navigation/src/routes/get_route.dart';
+import 'package:peekit_app/auth/login_screen.dart';
+import 'package:peekit_app/auth/register_screen.dart';
 import 'package:peekit_app/bindings/home_bindings.dart';
 import 'package:peekit_app/screens/home_screen.dart';
 import 'package:peekit_app/screens/news_detail_screen.dart';
@@ -20,6 +22,14 @@ class AppPages {
     GetPage(
       name: _Paths.SPLASH,
       page: () => SplashScreen()
+    ),
+    GetPage(
+      name: _Paths.REGISTER,
+      page: () => RegisterScreen()
+    ),
+    GetPage(
+      name: _Paths.LOGIN,
+      page: () => LoginScreen()
     ),
     GetPage(
       name: _Paths.ONBOARDING,

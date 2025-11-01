@@ -3,6 +3,8 @@ import 'package:peekit_app/models/app_notification.dart';
 
 class NotificationController extends GetxController {
   final RxList<AppNotification> notifications = <AppNotification>[].obs;
+  var isSelectionMode = false
+      .obs; // 🔥 status apakah lagi dalam mode "select" untuk delete
 
   // Tambah notifikasi baru
   void addNotification(String title, String message, {String? newsUrl}) {
@@ -35,12 +37,26 @@ class NotificationController extends GetxController {
     }
   }
 
-  // Apakah ada notifikasi yang sedang dipilih
+  // Cek apakah ada yang dipilih
   bool get hasSelected => notifications.any((n) => n.isSelected);
 
-  // Hapus notif yang terpilih
+  // Hapus notif terpilih
   void deleteSelected() {
     notifications.removeWhere((n) => n.isSelected);
+    exitSelectionMode();
+  }
+
+  // Masuk mode select
+  void enterSelectionMode() {
+    isSelectionMode.value = true;
+  }
+
+  // Keluar mode select dan hapus semua tanda centang
+  void exitSelectionMode() {
+    isSelectionMode.value = false;
+    for (var n in notifications) {
+      n.isSelected = false;
+    }
     notifications.refresh();
   }
 
@@ -48,4 +64,13 @@ class NotificationController extends GetxController {
   void clearAll() {
     notifications.clear();
   }
+
+  void clearSelection() {
+  for (var n in notifications) {
+    n.isSelected = false;
+  }
+  isSelectionMode.value = false; // keluar dari mode pilih
+  notifications.refresh();
+}
+
 }

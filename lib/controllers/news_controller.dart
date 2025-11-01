@@ -1,7 +1,9 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:peekit_app/controllers/notification_controller.dart';
 import 'package:peekit_app/models/news_articles.dart';
 import 'package:peekit_app/services/news_services.dart';
+import 'package:peekit_app/utils/app_colors.dart';
 import 'package:peekit_app/utils/constants.dart';
 
 class NewsController extends GetxController {
@@ -149,6 +151,10 @@ class NewsController extends GetxController {
           'No News Found',
           'No articles available from $filterType.',
           snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: AppColors.primary,
+          colorText: Colors.white,
+          margin: const EdgeInsets.all(12),
+          borderRadius: 12,
         );
       }
     } catch (e) {
@@ -156,6 +162,10 @@ class NewsController extends GetxController {
         'Error',
         'Failed to filter news: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
+        backgroundColor: Colors.redAccent,
+        colorText: Colors.white,
+        margin: const EdgeInsets.all(12),
+        borderRadius: 12,
       );
     }
   }
